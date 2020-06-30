@@ -3,8 +3,12 @@ class Api::ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.all
-
+    if params[:category] && params[:category] != "All"
+      @products = Product.where(:category => params[:category])
+    else
+      @products = Product.all
+    end
+  
     render json: @products
   end
 
